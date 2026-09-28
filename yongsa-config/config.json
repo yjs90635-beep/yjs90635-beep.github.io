@@ -1,0 +1,12 @@
+{
+  "latestVersion": "0.30.5",
+  "latestVersionCode": 56,
+  "minVersionCode": 0,
+  "forceUpdate": false,
+  "updateMessage": "",
+  "maintenance": {
+    "on": false,
+    "time": "",
+    "message": ""
+  }
+}
