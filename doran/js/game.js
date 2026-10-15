@@ -3,7 +3,7 @@ const $=id=>document.getElementById(id);
 const cv=$('c'),ov=$('o');let ctx=ov.getContext('2d');
 let DPR=Math.min(2,window.devicePixelRatio||1),VW=0,VH=0,PXU=52;
 const R3=new THREE.WebGLRenderer({canvas:cv,antialias:false,powerPreference:'low-power',preserveDrawingBuffer:false});
-R3.setPixelRatio(Math.min(1.5,window.devicePixelRatio||1));R3.shadowMap.enabled=true;R3.shadowMap.type=THREE.PCFShadowMap;R3.outputColorSpace=THREE.SRGBColorSpace;
+R3.setPixelRatio(Math.min(1.5,window.devicePixelRatio||1));cv.addEventListener('webglcontextlost',function(e){e.preventDefault();window.__gshow&&window.__gshow('화면(3D)이 잠시 멈췄어요. 다시 열어 주세요.');},false);cv.addEventListener('webglcontextrestored',function(){location.reload();},false);R3.shadowMap.enabled=true;R3.shadowMap.type=THREE.PCFShadowMap;R3.outputColorSpace=THREE.SRGBColorSpace;
 function resize(){VW=innerWidth;VH=innerHeight;R3.setSize(VW,VH,false);ov.width=VW*DPR;ov.height=VH*DPR;PXU=Math.max(56,Math.min(80,VW/5.4))}
 addEventListener('resize',resize);resize();
 const scene=new THREE.Scene();scene.background=new THREE.Color(0x9fd3f5);
