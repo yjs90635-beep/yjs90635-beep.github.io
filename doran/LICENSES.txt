@@ -1,0 +1,19 @@
+도란도란 마을 - 사용한 것과 라이선스
+- three.js r169 (MIT License, Copyright © 2010-2024 three.js authors)
+  lib/three.min.js 에 필요한 부분만 묶어(트리 셰이킹) 넣었음. 인터넷 없이도 실행됨.
+  MIT 전문: https://github.com/mrdoob/three.js/blob/r169/LICENSE (아래에 사본)
+- 사람 6종은 사용자가 Meshy로 만든 모델(models/*.bin, *.jpg). 그 밖의 3D 모델(건물, 나무, 가구, 분수, 차, 물건)과 바닥 무늬는 js/models.js 코드로 게임 실행 중에 직접 만드는 자체 제작물. 외부 이미지·모델 파일 없음.
+- 원작 게임(해피시티, 조이시티)의 이름, 캐릭터, 그림, 로고, UI, 음악은 사용하지 않음.
+
+The MIT License
+Copyright © 2010-2024 three.js authors
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Character 3D models generated with Meshy (https://www.meshy.ai) — attribution: Meshy
+
+[생활 시스템 추가 · 2026-10-15]
+- js/life.js: 직업 순환(줍기→만들기→돗자리 팔기), 옷 색·무늬·소품, 집 3종, 모임터, 친구·결혼·입양, OX 퀴즈, 자전거 — 모두 자체 제작 코드.
+- 소품(모자·안경·가방·자전거·샹들리에·돗자리)과 줍는 물건은 기본 도형으로 실행 중에 만든 것. 외부 이미지·모델 추가 없음.
+- 게임 안의 모든 이름(캐릭터 6명, 돈 '방울', 장소, 직업, 물건, 집, 행사)은 새로 지은 것이며 원작의 이름·그림·UI를 쓰지 않음.
+- 퀴즈 문제는 일반 상식 문장을 새로 쓴 것.

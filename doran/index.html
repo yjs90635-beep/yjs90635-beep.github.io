@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<link rel="icon" href="data:,"><title>도란도란 마을</title>
+<style>
+html,body{margin:0;height:100%;overflow:hidden;background:#000;font-family:sans-serif;touch-action:none;user-select:none;-webkit-user-select:none}
+canvas#c,canvas#o{position:fixed;inset:0;width:100%;height:100%;display:block}
+#rot{position:fixed;right:8px;top:44%;display:flex;flex-direction:column;gap:10px;z-index:1}#rot button{width:54px;height:54px;padding:0;border-radius:50%;font-size:28px;background:#fff8e6e0;box-shadow:0 3px 0 #c77800}
+.tg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.tc{background:#fff3e0;border-radius:14px;text-align:center;font-size:16px;padding:4px;border:3px solid transparent}.tc.on{border-color:#ff7043;background:#ffe0b2}.tc canvas{width:92px;height:112px}
+#hud{position:fixed;left:0;right:0;top:0;padding:10px 12px 18px;display:flex;justify-content:space-between;align-items:center;color:#fff;font-size:19px;font-weight:bold;text-shadow:0 1px 3px #000;pointer-events:none;background:linear-gradient(#000a,#0000)}
+#job{position:fixed;left:8px;right:8px;top:48px;background:#fffde7f0;border-radius:12px;padding:8px 12px;font-size:17px;display:none;pointer-events:none;border:2px solid #ffb300}
+#btns{position:fixed;left:0;right:0;bottom:0;height:118px;background:linear-gradient(#ffc04d,#f08a1c);border-radius:28px 28px 0 0;box-shadow:0 -3px 0 #ffe0a0 inset,0 -4px 14px #0007;display:flex;flex-direction:column;justify-content:center;gap:8px;padding:8px 104px 10px 10px;box-sizing:border-box}
+#emo{display:flex;gap:6px;align-items:center}#emo button{width:44px;height:44px;padding:0;border-radius:50%;font-size:22px;background:radial-gradient(circle at 35% 30%,#fff,#ffe7b8);box-shadow:0 2px 0 #b35f00}
+#cash{margin-left:auto;background:#fff8e6;border-radius:12px;padding:6px 10px;font-weight:bold;font-size:17px;color:#6d3b00;box-shadow:inset 0 2px 3px #0003;white-space:nowrap}
+#chat{display:flex;gap:6px}#ci{flex:1;font-size:18px;padding:8px 12px;border-radius:14px;border:0;box-shadow:inset 0 2px 4px #0004;background:#fffdf5;min-width:0}#cs{padding:8px 12px;font-size:17px;background:#fff1d0;box-shadow:0 2px 0 #b35f00}
+#dial{position:absolute;right:10px;top:12px;width:88px;height:88px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff8a65,#d84315 70%);color:#fff;font-size:20px;box-shadow:0 0 0 6px #ffd27a,0 4px 10px #0006;text-shadow:0 1px 2px #0008}
+#menu{position:absolute;right:8px;bottom:124px;display:none;flex-direction:column;gap:8px;align-items:flex-end}
+#act{position:fixed;right:10px;bottom:132px}
+button{font-size:19px;font-weight:bold;border:0;border-radius:14px;padding:12px 14px;background:#ffb74d;color:#3e2723;box-shadow:0 3px 0 #c77800;font-family:inherit}
+#act{display:none;background:#81c784;box-shadow:0 3px 0 #2e7d32;font-size:21px;z-index:2}
+#panel{z-index:3;position:fixed;left:0;right:0;bottom:0;max-height:62%;overflow:auto;background:#fffaf0;border-radius:20px 20px 0 0;padding:14px;font-size:19px;display:none;box-shadow:0 -4px 20px #0006;touch-action:pan-y;box-sizing:border-box}
+#panel h3{margin:4px 0 10px;font-size:22px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#fff;border-radius:12px;padding:8px 10px;margin:6px 0;border:1px solid #eee}
+.big{width:100%;margin:5px 0;padding:15px}.gray{background:#e0e0e0;box-shadow:0 3px 0 #9e9e9e}
+.ch{display:block;width:100%;margin:7px 0;text-align:left;background:#e3f2fd;box-shadow:0 3px 0 #90caf9}
+#toast{position:fixed;left:50%;top:34%;transform:translateX(-50%);background:#000c;color:#fff;padding:12px 20px;border-radius:14px;font-size:20px;display:none;pointer-events:none;text-align:center;width:max-content;max-width:85%}
+input{font-size:22px;padding:10px;width:100%;box-sizing:border-box;border-radius:10px;border:2px solid #aaa}
+.sw{display:inline-block;width:42px;height:42px;border-radius:50%;margin:4px;border:3px solid #fff;box-shadow:0 0 0 1px #999}.sw.on{border-color:#222}
+small{font-size:15px;color:#666}
+</style></head><body>
+<canvas id="c"></canvas><canvas id="o"></canvas><div id="rot"><button id="rl" aria-label="왼쪽으로 돌리기">⟲</button><button id="rr" aria-label="오른쪽으로 돌리기">⟳</button></div>
+<div id="hud"><span id="zone">📍</span><span><span id="clock"></span><span id="money"></span></span></div>
+<div id="job"></div>
+<button id="act"></button>
+<div id="btns"><div id="emo"><button data-e="😊 하하">😊</button><button data-e="😢 흑흑">😢</button><button data-e="👋 안녕하세요!">👋</button><button data-e="❤️">❤️</button><button data-e="❓ 응?">❓</button><span id="cash">🔔 0</span></div>
+<div id="chat"><input id="ci" maxlength="30" placeholder="하고 싶은 말을 적어요"><button id="cs">말하기</button></div>
+<button id="dial">메뉴</button><div id="menu"><button id="bagb">🎒 가방</button><button id="jobb">📒 직업 수첩</button><button id="helpb">❔ 도움말</button></div></div>
+<div id="panel"></div><div id="toast"></div>
+<script src="lib/three.min.js"></script><script src="lib/meshopt.min.js"></script><script src="src/map.js"></script><script src="js/models.js"></script><script src="js/game.js"></script><script src="js/life.js"></script></body></html>
