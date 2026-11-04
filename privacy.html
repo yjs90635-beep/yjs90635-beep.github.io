@@ -24,7 +24,7 @@
 <tr><td>게임 재화·보유 상품(다이아몬드, 염색약 개수, 말·펫·가방 보유, 구독 상태)과 변조 확인용 값 — 기기, 일부 서버</td><td>게임 진행, 부정 이용 막기</td><td>계정 삭제 요청 시까지</td></tr>
 <tr><td>랭킹(이름·레벨·능력·모습), 거래소 글, 주택·방문·초대, 같은 맵 위치·체력</td><td>랭킹·거래·주택 기능</td><td>각 기능 종료 또는 계정 삭제 요청 시까지</td></tr>
 </table>
-<p>전화번호, 위치, 사진(기기 갤러리), 연락처, 기기 식별자, 광고 ID 는 수집하지 않습니다. 광고도 없습니다.</p>
+<p>전화번호, 위치, 사진(기기 갤러리), 연락처, 기기 식별자는 수집하지 않습니다. 광고 ID(AD_ID) 권한은 앱에서 뺐습니다. 광고는 아래 4-1을 보세요.</p>
 
 <h2>2. 게임 기록</h2>
 <p>레벨, 장비, 골드, 설정 같은 기본 진행 기록은 <b>이용자의 기기 안</b>에도 저장됩니다. 랭킹·채팅·거래소·주택처럼 다른 사람과 함께 쓰는 내용은 서버에도 저장됩니다.</p>
@@ -34,13 +34,18 @@
 
 <h2>4. 결제</h2>
 <p>선택 구매는 Google Play 결제로 처리됩니다. 판매 상품: 💎 다이아몬드 100개, 염색약, 말(흰 말·검은 말), 펫(강아지·고양이), 가방 5,000칸(영구), 가방 확장·자동사냥·자동낚시 월 구독.</p>
-<p>카드 등 결제 정보는 Google 이 처리하며 용사게임즈는 받지 않습니다. 결제가 끝나면 앱이 구매 토큰을 결제 확인 서버(Cloudflare Workers)로 보내고, 서버가 Google Play 에 진짜 결제인지 확인한 뒤에만 상품을 줍니다. 환불·취소된 구매는 Google Play 알림을 받아 해당 상품을 회수할 수 있습니다.</p>
+<p>카드 등 결제 정보는 Google 이 처리하며 용사게임즈는 받지 않습니다. 결제가 끝나면 앱이 구매 토큰을 결제 확인 서버(Google Cloud Functions, 서울 리전)로 보내고, 서버가 Google Play 에 진짜 결제인지 확인한 뒤에만 상품을 줍니다. 환불·취소된 구매는 Google Play 알림을 받아 해당 상품을 회수할 수 있습니다.</p>
+
+<h2>4-1. 광고</h2>
+<p>앱에는 Google AdMob(광고 SDK)이 들어 있으며, 이용자가 직접 「광고 보고 보상 받기」를 누를 때만 보상형 광고를 보여 줍니다. 배너·전면 광고는 없습니다.</p>
+<p>광고를 보여 주고 부정 클릭을 막기 위해 AdMob 이 IP 주소, 기기·앱 정보(기종, OS, 언어, 앱 버전), 광고 노출·클릭 기록 등 광고 데이터를 수집·처리할 수 있습니다. 광고 ID(AD_ID)는 앱 권한에서 빼서 쓰지 않습니다. 자세한 내용은 Google 의 개인정보처리방침(https://policies.google.com/privacy)과 「Google 이 파트너 사이트나 앱의 정보를 사용하는 방법」(https://policies.google.com/technologies/partner-sites)을 보세요. 광고를 보지 않아도 게임은 그대로 할 수 있습니다.</p>
 
 <h2>5. 처리 위탁 및 국외 이전</h2>
 <table>
 <tr><th>받는 곳</th><th>위탁 업무</th><th>이전 국가·방법</th><th>항목</th><th>보관 기간</th></tr>
 <tr><td>Google LLC (Firebase Authentication, Cloud Firestore, Realtime Database, Google Play 결제)</td><td>로그인, 이름·채팅·랭킹·거래·주택 등 서버 기능, 결제 처리·확인</td><td>미국 등 Google 데이터센터 (Firestore 서울, Realtime Database 싱가포르 등) · 앱 사용 시 인터넷 전송</td><td>1번 표의 항목</td><td>1번 표와 같음</td></tr>
-<tr><td>Cloudflare, Inc. (Cloudflare Workers)</td><td>결제 확인 서버 운영</td><td>미국 등 Cloudflare 데이터센터 · 결제할 때 인터넷 전송</td><td>구매 토큰, 상품 ID, Firebase UID, 로그인 확인 토큰</td><td>저장하지 않음(확인 후 바로 버림)</td></tr>
+<tr><td>Google LLC (Google AdMob)</td><td>보상형 광고 표시, 광고 측정·부정 방지</td><td>미국 등 Google 데이터센터 · 광고를 볼 때 인터넷 전송</td><td>IP 주소, 기기·앱 정보, 광고 노출·클릭 기록</td><td>Google 정책에 따름</td></tr>
+<tr><td>Google LLC (Google Cloud Functions)</td><td>결제 확인 서버 운영</td><td>대한민국(서울 리전) Google 데이터센터 · 결제할 때 인터넷 전송</td><td>구매 토큰, 상품 ID, Firebase UID, 로그인 확인 토큰</td><td>저장하지 않음(확인 후 바로 버림)</td></tr>
 </table>
 <p>국외 이전을 원하지 않으면 Google 로그인을 하지 않을 수 있습니다. 이 경우 새 용사 이름을 만들 수 없습니다(이미 있는 용사는 계속 플레이할 수 있습니다).</p>
 
@@ -69,6 +74,6 @@
 <hr>
 <h1>Privacy Policy — 용사가 될거야 (Yongsa Doelgeoya)</h1>
 <p>Developer: 용사게임즈 (Yongsa Games) · Applies to version 1.0.9+ (current 1.1.x) · Effective: 2026-11-05 · Contact: yjs90635@gmail.com</p>
-<p>The app uses Google Sign-In and Google Firebase (Authentication, Cloud Firestore, Realtime Database). We store Google account ID, email, profile name/photo URL, Firebase UID, hero names and channel data, chat messages (including whispers and family chat), reports, block lists, rankings, marketplace listings, housing/visit data, and map presence (name, appearance, position, health). Basic progress (level, gear, gold, settings) also stays on your device. Other players may see chat, rankings, marketplace, housing, and map presence. You can report or block players in-app; the operator account may remove chat or temporarily restrict chat. No ads and no advertising ID. In-app purchases (diamonds, dye, horses, pets, 5,000-slot bag, and monthly bag-expansion / auto-hunt / auto-fish subscriptions) are processed by Google Play; we do not receive payment card details. After a purchase the app sends the purchase token to our verification server (Cloudflare Workers), which checks it with Google Play before granting the item; we keep order ID, hashed token, product, purchase/expiry/refund times and Firebase UID for 5 years, and refunded purchases may be revoked. Google LLC processes this data on our behalf and it may be transferred to Google data centers outside Korea (e.g. the United States; Realtime Database may use Singapore). We do not sell personal data.</p>
+<p>The app uses Google Sign-In and Google Firebase (Authentication, Cloud Firestore, Realtime Database). We store Google account ID, email, profile name/photo URL, Firebase UID, hero names and channel data, chat messages (including whispers and family chat), reports, block lists, rankings, marketplace listings, housing/visit data, and map presence (name, appearance, position, health). Basic progress (level, gear, gold, settings) also stays on your device. Other players may see chat, rankings, marketplace, housing, and map presence. You can report or block players in-app; the operator account may remove chat or temporarily restrict chat. Ads: the app includes the Google AdMob advertising SDK and shows rewarded ads only when you choose to watch one (no banner or interstitial ads). AdMob may collect ad data such as IP address, device and app information, and ad impressions/clicks to serve ads and prevent fraud; see https://policies.google.com/privacy. The advertising ID (AD_ID) permission is removed and not used. In-app purchases (diamonds, dye, horses, pets, 5,000-slot bag, and monthly bag-expansion / auto-hunt / auto-fish subscriptions) are processed by Google Play; we do not receive payment card details. After a purchase the app sends the purchase token to our verification server (Google Cloud Functions, Seoul region), which checks it with Google Play before granting the item; we keep order ID, hashed token, product, purchase/expiry/refund times and Firebase UID for 5 years, and refunded purchases may be revoked. Google LLC processes this data on our behalf and it may be transferred to Google data centers outside Korea (e.g. the United States; Realtime Database may use Singapore). We do not sell personal data.</p>
 <p id="delete-en"><b>Account &amp; data deletion:</b> email yjs90635@gmail.com with the subject "Account deletion" and your Google email; we delete your account and server data within 30 days. In-app: Settings › More › account deletion. Uninstalling the app or clearing its data removes on-device progress.</p>
 </body></html>
